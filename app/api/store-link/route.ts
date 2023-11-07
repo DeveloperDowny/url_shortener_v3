@@ -2,6 +2,7 @@ import { storeLinkRequestVaidator } from "@/lib/validators/storeLinkRequestValid
 import { postgresLinkRepository } from "@/repositories/implementations/postgres/link-repository";
 import { NextRequest, NextResponse } from "next/server";
 import Link from "@/entities/Link";
+import APIRequests from "@/app/_utils/api";
 
 export async function POST(request: NextRequest) {
   const body = await request.json();
@@ -19,8 +20,13 @@ export async function POST(request: NextRequest) {
 
   try {
     const link = new Link({ userID, longLink });
-    await postgresLinkRepository.storeLink(link)
-    return NextResponse.json({ link }, { status: 201 })
+    // check how to get shortcode
+    const mshortCode = link.longLinkHash;
+    console.log("mshortCode", mshortCode);
+    const res = await APIRequests.storeLink(mshortCode, longLink);
+
+    await postgresLinkRepository.storeLink(link);
+    return NextResponse.json({ link }, { status: 201 });
   } catch (err) {
     console.error("ERROR: Failed to save link:", err);
     return new Response(null, { status: 500 });

@@ -8,7 +8,7 @@ interface IHandleAutoSignInProps {
 export async function handleAutoSignin({
   email,
   password,
-}: IHandleAutoSignInProps): Promise<{ status: number, msg?: string }> {
+}: IHandleAutoSignInProps): Promise<{ status: number; msg?: string }> {
   const signInResult = await signIn("credentials", {
     email,
     password,
@@ -16,6 +16,8 @@ export async function handleAutoSignin({
   });
 
   if (signInResult?.error) {
+    console.log("signInResult.error", signInResult.error);
+
     return { status: 403, msg: signInResult.error };
   } else {
     return { status: 200 };
