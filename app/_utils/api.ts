@@ -35,6 +35,7 @@ class APIRequests {
     API.post(`/analytics/store_a_v2/${linkHash}`, {
       data: ipData,
     });
+  static getAnalytics = () => API.get(`/analytics/get_a_v2`);
 }
 
 export default APIRequests;
