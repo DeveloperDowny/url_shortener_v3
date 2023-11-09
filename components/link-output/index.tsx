@@ -9,8 +9,8 @@ export function ShortLinkOutput() {
 
   const getShortLink = () => {
     // return window.location.origin + "/" + urlContext?.shortLink
-    return window.location.origin + "/" + urlContext?.shortLink
-  }
+    return "https://trylinky.vercel.app" + "/" + urlContext?.shortLink;
+  };
 
   const [isLinkCopied, setIsLinkCopied] = useState(false);
   const QRCodeWrapRef = useRef<HTMLDivElement>(null);
@@ -48,16 +48,14 @@ export function ShortLinkOutput() {
   };
 
   const copyToClipBoard = () => {
-    urlContext?.shortLink &&
-      navigator.clipboard.writeText(getShortLink());
+    urlContext?.shortLink && navigator.clipboard.writeText(getShortLink());
     setIsLinkCopied(true);
 
     // Tell the user that Link was copied and after for 3 seconds
     setTimeout(() => {
-      setIsLinkCopied(false)
-    }, 3000)
+      setIsLinkCopied(false);
+    }, 3000);
   };
-
 
   return (
     <div className="mt-8 md:mt-0">
@@ -83,7 +81,11 @@ export function ShortLinkOutput() {
             onClick={downloadQRCodeAsPNG}
           />
           <div className="absolute shadow-lg top-0 right-0 rounded-tr p-1 bg-slate-700">
-          <IoMdDownload onClick={downloadQRCodeAsPNG} role="Download QR Code as PNG image" className="text-white w-5 h-5" />
+            <IoMdDownload
+              onClick={downloadQRCodeAsPNG}
+              role="Download QR Code as PNG image"
+              className="text-white w-5 h-5"
+            />
           </div>
         </div>
       )}

@@ -12,13 +12,6 @@ const API = axios.create({
 API.interceptors.request.use((req) => {
   req.headers.Authorization = `Bearer ${"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1NDljMzYyZTk1ZDNhMWYxNGZmYTNiNCIsImlhdCI6MTY5OTMzMjk2MiwiZXhwIjoxNzAxOTI0OTYyfQ.uK4GEM7pzKjEkEZtzNUJashcH35udpBnz0Tt6Y-H-ik"}`;
   return req;
-  if (sessionStorage.getItem("profile")) {
-    req.headers.Authorization = `Bearer ${
-      JSON.parse(sessionStorage.getItem("profile")).token
-    }`;
-  }
-
-  return req;
 });
 
 class APIRequests {
