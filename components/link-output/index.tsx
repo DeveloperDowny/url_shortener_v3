@@ -8,6 +8,7 @@ export function ShortLinkOutput() {
   const urlContext = useContext(LinkContext);
 
   const getShortLink = () => {
+    // return window.location.origin + "/" + urlContext?.shortLink
     return window.location.origin + "/" + urlContext?.shortLink
   }
 

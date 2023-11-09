@@ -5,8 +5,8 @@ import axios from "axios";
 const isTestMode = false;
 
 const API = axios.create({
-  baseURL: "http://localhost:5000/api/v1",
-  // baseURL: "https://mail-pay-v2.onrender.com",
+  // baseURL: "http://localhost:5000/api/v1",
+  baseURL: "https://linkly-back.onrender.com/api/v1",
 });
 
 API.interceptors.request.use((req) => {
