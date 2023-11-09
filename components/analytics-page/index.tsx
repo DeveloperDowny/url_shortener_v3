@@ -5,6 +5,7 @@ import { UserLinkList } from "./links";
 // import { useEffect } from "react";
 import APIRequests from "@/app/_utils/api";
 import TableComponent from "../Table";
+import Maps from "../Maps";
 
 export async function AnalyticsPage({ session }: { session: Session }) {
   const analyticsRes = await APIRequests.getAnalytics().catch((err) => {
@@ -62,6 +63,23 @@ export async function AnalyticsPage({ session }: { session: Session }) {
           {session.user?.email && (
             <TableComponent analyticsData={analyticsRes.data} />
           )}
+        </div>
+      </div>
+      <h1 className="text-left indent-2 font-bold text-slate-700 text-lg pt-[2rem] ml-[4rem]">
+        View On Map
+      </h1>
+
+      <div className="shadow-lg pb-4  rounded-lg mx-[4rem] mb-4">
+        {/* <div className="w-fit mx-auto mt-32"> */}
+
+        {/* <div className="my-4 border-t border-slate-200 border-1 w-11/12 mx-auto" /> */}
+        <div className="my-4   w-11/12 mx-auto" />
+
+        <div className="px-[1rem]">
+          {/* @ts-ignore: Unsing an async component */}
+
+          {/* {session.user?.email && <UserLinkList userID={session.user._id} />} */}
+          {session.user?.email && <Maps analyticsData={analyticsRes.data} />}
         </div>
       </div>
     </main>

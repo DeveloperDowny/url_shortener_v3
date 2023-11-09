@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+"use client";
+
+import React, { useEffect, useState } from "react";
 import {
   useJsApiLoader,
   GoogleMap,
@@ -9,42 +11,19 @@ import {
 
 const center = { lat: 19.11, lng: 72.84 };
 
-const Maps = () => {
+const Maps = ({ analyticsData }) => {
+  useEffect(() => {
+    console.log("ad", analyticsData);
+  }, []);
+
   const { isLoaded } = useJsApiLoader({
-    googleMapsApiKey: "AIzaSyCj84QwDPDua8y_xR4boyue0iTyBfWkKqU",
+    googleMapsApiKey: "AIzaSyCj84QwDPDua8y_xR4boyue0iTyBfWkKqU", // Replace with your Google Maps API key
     libraries: ["places"],
   });
 
-  const [isOpen, setisOpen] = useState(false);
+  const [isOpen, setisOpen] = useState(null);
 
-  const locations = [
-    {
-      name: "Jaipur",
-      geometry: { location: { lat: 26.907524, lng: 75.739639 } },
-    },
-    {
-      name: "Lucknow",
-      geometry: { location: { lat: 26.85, lng: 80.949997 } },
-    },
-    {
-      name: "Mumbai",
-      geometry: { location: { lat: 19.07609, lng: 72.877426 } },
-    },
-    {
-      name: "Andheri",
-      geometry: { location: { lat: 19.119698, lng: 72.84641 } },
-    },
-    {
-      name: "Juhu",
-      geometry: { location: { lat: 19.107421, lng: 72.827903 } },
-    },
-    {
-      name: "Delhi",
-      geometry: { location: { lat: 28.70406, lng: 77.102493 } },
-    },
-  ];
-
-  if (isLoaded)
+  if (isLoaded) {
     return (
       <div className="h-[86.2vh] w-full">
         <div className="bg-slate-500 h-full w-full">
@@ -55,23 +34,26 @@ const Maps = () => {
           >
             <MarkerClustererF>
               {(clusterer) => {
-                return locations.map((location, idx) => {
+                return analyticsData.data.map((data, idx) => {
+                  // Convert latitude and longitude from strings to numbers
+                  const latitude = parseFloat(data.latitude);
+                  const longitude = parseFloat(data.longitude);
+
                   return (
                     <MarkerF
                       key={idx}
-                      position={location.geometry.location}
+                      position={{ lat: latitude, lng: longitude }}
                       clusterer={clusterer}
                       onClick={() => setisOpen(idx)}
                     >
                       {isOpen === idx && (
                         <InfoWindowF onCloseClick={() => setisOpen(null)}>
                           <div className="w-48">
-                            <div className="font-semibold my-2">
-                              {location.name}
-                            </div>
-                            <div className="my-2">{location.vicinity}</div>
+                            <div className="font-semibold my-2">Location</div>
+                            <div className="my-2">City: {data.city}</div>
+                            <div className="my-2">Country: {data.country}</div>
                             <div className="my-2 text-gray-500">
-                              Rating: {location.rating}/5
+                              IP: {data.ip}
                             </div>
                           </div>
                         </InfoWindowF>
@@ -85,6 +67,9 @@ const Maps = () => {
         </div>
       </div>
     );
+  } else {
+    return <div>Loading...</div>;
+  }
 };
 
 export default Maps;
