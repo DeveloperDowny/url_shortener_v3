@@ -4,7 +4,7 @@ import { UserLinkList } from "./links";
 
 export function UserProfile({ session }: { session: Session }) {
   return (
-    <main className="z-10 min-h-screen max-w-xs md:max-w-md mx-auto text-center text-slate-500 pt-16 md:pt-[15%]">
+    <main className="z-10 min-h-screen max-w-xs md:max-w-md mx-auto text-center text-slate-500 pt-16 md:pt-[15%] mb-8">
       <div className="shadow-lg pb-4 border border-2 rounded-lg">
         <div className="relative">
           <img
@@ -18,8 +18,7 @@ export function UserProfile({ session }: { session: Session }) {
 
         <div className="w-fit mx-auto mt-32">
           <h1 className="inline text-slate-700 font-bold text-2xl">
-            {session.user?.name}
-            {" "}
+            {session.user?.name}{" "}
           </h1>
           <FiEdit3 className="inline mb-4" />
         </div>
@@ -29,10 +28,10 @@ export function UserProfile({ session }: { session: Session }) {
 
         <div className="px-2">
           <h1 className="text-left indent-2 font-bold text-slate-700 text-lg">
-            Shortned Links
+            Shortened Links
           </h1>
-          { /* @ts-ignore: Unsing an async component */ }
-          { session.user?.email && <UserLinkList userID={session.user._id} />}
+          {/* @ts-ignore: Unsing an async component */}
+          {session.user?.email && <UserLinkList userID={session.user._id} />}
         </div>
       </div>
     </main>
