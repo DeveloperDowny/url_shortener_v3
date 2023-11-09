@@ -20,12 +20,29 @@ export const getEllipText = (text) => {
   }
   return text;
 };
+// export const formattedDate = (date) => {
+//   return new Date(date).toLocaleDateString("en-US", {
+//     year: "numeric",
+//     month: "short",
+//     day: "numeric",
+//   });
+// };
+
 export const formattedDate = (date) => {
-  return new Date(date).toLocaleDateString("en-US", {
+  const options = {
     year: "numeric",
     month: "short",
     day: "numeric",
-  });
+    hour: "numeric",
+    minute: "numeric",
+    timeZone: "UTC", // Use UTC to apply the offset
+  };
+
+  const utcDate = new Date(date);
+  utcDate.setHours(utcDate.getHours() + 5); // Add 5 hours for UTC offset
+  utcDate.setMinutes(utcDate.getMinutes() + 30); // Add 30 minutes for UTC offset
+
+  return utcDate.toLocaleDateString("en-US", options);
 };
 
 const TableComponent = ({ analyticsData }) => {
