@@ -23,7 +23,9 @@ export async function POST(request: NextRequest) {
     // check how to get shortcode
     const mshortCode = link.longLinkHash;
     console.log("mshortCode", mshortCode);
-    const res = await APIRequests.storeLink(mshortCode, longLink);
+
+    // save from front end not here
+    // const res = await APIRequests.storeLink(mshortCode, longLink);
 
     await postgresLinkRepository.storeLink(link);
     return NextResponse.json({ link }, { status: 201 });

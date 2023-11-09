@@ -22,6 +22,14 @@ API.interceptors.request.use((req) => {
 });
 
 class APIRequests {
+  static saveLink = (longUrl, mshortCode) => {
+    return API.post("/shorturls", {
+      longUrl: longUrl,
+      description: "test",
+      mshortCode: mshortCode,
+    });
+  };
+
   static storeLink = (mshortCode: string, link: string) =>
     API.post("/shorturls", {
       longUrl: link,
@@ -31,10 +39,13 @@ class APIRequests {
   static getLocation = () =>
     axios.get("https://ipinfo.io?token=9c2da51b4c1229");
 
-  static storeAnalytics = (linkHash, ipData) =>
-    API.post(`/analytics/store_a_v2/${linkHash}`, {
+  static storeAnalytics = (linkHash, ipData) => {
+    console.log("linkHash", linkHash);
+
+    return API.post(`/analytics/store_a_v2/${linkHash}`, {
       data: ipData,
     });
+  };
   static getAnalytics = () => API.get(`/analytics/get_a_v2`);
 }
 

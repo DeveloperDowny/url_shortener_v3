@@ -4,7 +4,7 @@ import { Session } from "next-auth";
 import { Providers } from "./providers";
 
 export const metadata = {
-  title: "URL Shorter",
+  title: "Linkly - URL Shorter",
   description: "Make you URL short",
 };
 

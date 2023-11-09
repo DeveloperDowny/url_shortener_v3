@@ -10,6 +10,7 @@ import { TStoreLinkRequestStates } from "./types";
 import { storeLinkRequest, IStoreLinkProps } from "./storeLinkRequest";
 import Link from "@/entities/Link";
 import { Container } from "../container";
+import APIRequests from "@/app/_utils/api";
 
 export default function Home() {
   const { data: session } = useSession();
@@ -64,6 +65,8 @@ export default function Home() {
     }
 
     const link = response.link as Link;
+
+    const saveLink = await APIRequests.saveLink(link.longLink, link.longLinkHash);
 
     setShortLink(() => link.longLinkHash);
     setStoreLinkRequestState("DONE");

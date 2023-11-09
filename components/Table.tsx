@@ -4,7 +4,6 @@ import {
   Table,
   Thead,
   Tbody,
-  Tfoot,
   Tr,
   Th,
   Td,
@@ -15,13 +14,26 @@ import {
 import { EditIcon, DeleteIcon } from "@chakra-ui/icons";
 import { useState, useEffect } from "react";
 
+export const getEllipText = (text) => {
+  if (text.length > 90) {
+    return text.substring(0, 90) + "...";
+  }
+  return text;
+};
+export const formattedDate = (date) => {
+  return new Date(date).toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+  });
+};
+
 const TableComponent = ({ analyticsData }) => {
   const [isCilent, setIsCilent] = useState(false);
+
   useEffect(() => {
     setIsCilent(true);
-
     console.log("analyticsData", analyticsData);
-
     return () => {};
   }, []);
 
@@ -30,55 +42,48 @@ const TableComponent = ({ analyticsData }) => {
       <Table variant="striped">
         <Thead>
           <Tr>
-            <Th>Short link</Th>
-            <Th>Original link</Th>
-            <Th>QR Code</Th>
-            <Th>Clicks</Th>
-            <Th>Status</Th>
-            <Th>Date</Th>
-            <Th>Actions</Th>
+            <Th>Long link</Th>
+            <Th>Short code</Th>
+            {/* <Th>Owner ID</Th> */}
+            <Th>IP</Th>
+            <Th>City</Th>
+            {/* <Th>Region</Th> */}
+            {/* <Th>Country</Th> */}
+            {/* <Th>Latitude</Th> */}
+            {/* <Th>Longitude</Th> */}
+            {/* <Th>Platform</Th> */}
+            {/* <Th>Browser</Th> */}
+            {/* <Th>OS</Th> */}
+            <Th>Date Clicked</Th>
           </Tr>
         </Thead>
         <Tbody>
-          <Tr>
-            <Td>https://www.google.com</Td>
-            <Td>https://localhost:3000/api/v1/google</Td>
-            <Td>
-              <Image
-                src="https://upload.wikimedia.org/wikipedia/commons/d/d0/QR_code_for_mobile_English_Wikipedia.svg"
-                boxSize="50px"
-              />
-            </Td>
-            <Td isNumeric>30</Td>
-            <Td>Active</Td>
-            <Td>01-10-2023</Td>
-            <Td>
-              <div style={{ display: "flex", justifyContent: "space-between" }}>
-                <EditIcon />
-                <DeleteIcon />
-              </div>
-            </Td>
-          </Tr>
+          {analyticsData.data.map((data) => (
+            <Tr key={data._id}>
+              <Td>{getEllipText(data.shortUrlData[0].longUrl)}</Td>
 
-          <Tr>
-            <Td>https://www.google.com</Td>
-            <Td>https://localhost:3000/api/v1/google</Td>
-            <Td>
-              <Image
-                src="https://upload.wikimedia.org/wikipedia/commons/d/d0/QR_code_for_mobile_English_Wikipedia.svg"
-                boxSize="50px"
-              />
-            </Td>
-            <Td isNumeric>30</Td>
-            <Td>Active</Td>
-            <Td>01-10-2023</Td>
-            <Td>
-              <div style={{ display: "flex", justifyContent: "space-between" }}>
-                <EditIcon />
-                <DeleteIcon />
-              </div>
-            </Td>
-          </Tr>
+              <Td>{data.shortCode}</Td>
+              {/* <Td>{data.ownerId}</Td> */}
+              <Td>{data.ip}</Td>
+              <Td>{data.city}</Td>
+              {/* <Td>{data.region}</Td> */}
+              {/* <Td>{data.country}</Td> */}
+              {/* <Td>{data.latitude}</Td> */}
+              {/* <Td>{data.longitude}</Td> */}
+              {/* <Td>{data.platform}</Td> */}
+              {/* <Td>{data.browser}</Td> */}
+              {/* <Td>{data.os}</Td> */}
+              <Td>{formattedDate(data.createdAt)}</Td>
+              <Td>
+                <div
+                  style={{ display: "flex", justifyContent: "space-between" }}
+                >
+                  <EditIcon />
+                  <DeleteIcon />
+                </div>
+              </Td>
+            </Tr>
+          ))}
         </Tbody>
       </Table>
     </TableContainer>

@@ -9,7 +9,9 @@ import {
   InfoWindowF,
 } from "@react-google-maps/api";
 
-const center = { lat: 19.11, lng: 72.84 };
+// const center = { lat: 19.11, lng: 72.84 };
+// 22.5869° N, 88.3169° E
+const center = { lat: 10.5869, lng: 88.3169 };
 
 const Maps = ({ analyticsData }) => {
   useEffect(() => {
@@ -29,7 +31,8 @@ const Maps = ({ analyticsData }) => {
         <div className="bg-slate-500 h-full w-full">
           <GoogleMap
             center={center}
-            zoom={15}
+            // zoom={15}
+            zoom={5}
             mapContainerStyle={{ width: "100%", height: "100%" }}
           >
             <MarkerClustererF>
