@@ -22,7 +22,7 @@ export async function UserLinkList({ userID }: { userID: string }) {
       ) : (
         userLinks.map((link) => (
           <ExpandableContent
-            mainInfo={"https://trylinky.vercel.app/" + link.longLinkHash}
+            mainInfo={"https://trylinkly.vercel.app/" + link.longLinkHash}
             // mainInfo={"trylinkly.vercel.app/" + link.longLinkHash} // uncomment []
             extraInfo={link.longLink}
             key={link.longLinkHash}

@@ -9,7 +9,7 @@ export function ShortLinkOutput() {
 
   const getShortLink = () => {
     // return window.location.origin + "/" + urlContext?.shortLink
-    return "https://trylinky.vercel.app" + "/" + urlContext?.shortLink;
+    return "https://trylinkly.vercel.app" + "/" + urlContext?.shortLink;
   };
 
   const [isLinkCopied, setIsLinkCopied] = useState(false);
